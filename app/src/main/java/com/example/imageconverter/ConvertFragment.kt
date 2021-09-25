@@ -9,12 +9,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.view.isGone
 import kotlinx.android.synthetic.main.fragment_convert.*
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 
 class ConvertFragment : MvpAppCompatFragment(), FragmentView {
+
     companion object {
         fun newInstance() = ConvertFragment()
         var selectedFile: Uri? = null
@@ -22,6 +22,7 @@ class ConvertFragment : MvpAppCompatFragment(), FragmentView {
     }
 
     private val presenter by moxyPresenter { ConvertFragmentPresenter() }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -34,9 +35,14 @@ class ConvertFragment : MvpAppCompatFragment(), FragmentView {
         super.onViewCreated(view, savedInstanceState)
 
         convertButton.setOnClickListener {
-            val bitmap = (imageView.drawable as BitmapDrawable).bitmap
-            presenter.convertAndSaveNewImage(bitmap, path)
-            Toast.makeText(activity, "Wait a bit: converting new image...", Toast.LENGTH_SHORT).show()
+            try {
+                val bitmap = (imageView.drawable as BitmapDrawable).bitmap
+                presenter.convertAndSaveNewImage(bitmap, path)
+                Toast.makeText(activity, "Wait a bit: converting new image...", Toast.LENGTH_SHORT)
+                    .show()
+            } catch (e : NullPointerException) {
+                Toast.makeText(activity, "Wrong type of file", Toast.LENGTH_SHORT).show()
+            }
         }
 
         selectButton.setOnClickListener {
