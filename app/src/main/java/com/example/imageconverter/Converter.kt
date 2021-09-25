@@ -12,5 +12,17 @@ import java.io.OutputStream
 import java.lang.Exception
 
 object Converter {
-
+    fun convertImage(image: Bitmap, path: String?) : Single <File>{
+        return Single.create(SingleOnSubscribe {
+            if (it.isDisposed) return@SingleOnSubscribe
+            val newImage = File(path, "NewImage.png")
+            val stream: OutputStream = FileOutputStream(newImage)
+            if (image.compress(Bitmap.CompressFormat.JPEG, 100, stream))
+                it.onSuccess(newImage)
+            else
+                it.onError(Exception("Conversion problem"))
+            stream.flush()
+            stream.close()
+        })
+    }
 }
