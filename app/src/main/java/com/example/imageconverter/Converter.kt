@@ -17,7 +17,7 @@ object Converter {
             if (it.isDisposed) return@SingleOnSubscribe
             val newImage = File(path, "NewImage.png")
             val stream: OutputStream = FileOutputStream(newImage)
-            if (image.compress(Bitmap.CompressFormat.JPEG, 100, stream))
+            if (image.compress(Bitmap.CompressFormat.PNG, 100, stream))
                 it.onSuccess(newImage)
             else
                 it.onError(Exception("Conversion problem"))
