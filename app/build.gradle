@@ -6,6 +6,10 @@ plugins {
 android {
     compileSdk 30
 
+    buildFeatures {
+        viewBinding true
+    }
+
     defaultConfig {
         applicationId "com.example.imageconverter"
         minSdk 29
@@ -56,4 +60,6 @@ dependencies {
     //RxJava
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
     implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
+
+    implementation 'com.github.kirich1409:viewbindingpropertydelegate:1.4.6'
 }
