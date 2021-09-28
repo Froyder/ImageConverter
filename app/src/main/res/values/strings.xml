@@ -2,4 +2,5 @@
     <string name="app_name">ImageConverter</string>
     <string name="convert">Convert to PNG</string>
     <string name="select">Select Image</string>
+    <string name="cancel">Cancel</string>
 </resources>
